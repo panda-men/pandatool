@@ -1,7 +1,6 @@
 <?php
 /**
  * Created by VScode.
- * User: panda
  * Date: 2020/3/14
  * Time: 下午 11:47
  */
