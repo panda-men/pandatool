@@ -4,7 +4,6 @@
     "homepage": "https://packagist.org/packages/pandamen/panda-tool",
     "type": "project",
     "license": "MIT",
-    "minimum-stability" : "stable" ,
     "authors": [
         {
             "name": "panda",
