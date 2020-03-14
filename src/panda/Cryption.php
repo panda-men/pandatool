@@ -12,7 +12,7 @@ use panda\Component\Singleton;
 
 class Cryption
 {
-    private static $key = 'siam'; // 默认key
+    private static $key = 'panda'; // 默认key
 
     use Singleton;
 

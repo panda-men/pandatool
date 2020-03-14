@@ -13,10 +13,9 @@ $cryption = \panda\Cryption::getInstance();
 # 每次加密的结果都不一样 可以设置过期时间
 $res = $cryption->encode("My name is panda", "panda");
 echo $res;
-
-echo "<br/>\n";
+echo "<br>";
 
 # 解码
-$deRes = $cryption->decode("7c80mR4b0tRG4fNB86pwJfDNz8ZLNzTZqfLYTpiO2w6liPyY5qWN2vD4Udc", "panda");
+$deRes = $cryption->decode($res, "panda");
 echo $deRes;
 
