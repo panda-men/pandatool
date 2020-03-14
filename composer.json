@@ -1,12 +1,14 @@
 {
     "name": "pandamen/panda-tool",
     "description": "pandaTool PHP",
+    "homepage": "https://packagist.org/packages/pandamen/panda-tool",
     "type": "project",
     "license": "MIT",
     "authors": [
         {
             "name": "panda",
-            "email": "790274786@qq.com"
+            "email": "790274786@qq.com",
+            "homepage": "https://packagist.org/packages/pandamen/panda-tool"
         }
     ],
     "minimum-stability" : "stable" ,
