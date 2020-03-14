@@ -1,0 +1,22 @@
+{
+    "name": "panda-tool/commom-helper",
+    "description": "pandaTool PHP",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "panda",
+            "email": "790274786@qq.com"
+        }
+    ],
+    "minimum-stability" : "dev" ,
+    "require": {
+        "php" : ">=7.2.0",
+        "ext-openssl": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "panda\\" : "src/panda"
+        }
+    }
+}
