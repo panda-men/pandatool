@@ -3,7 +3,7 @@
 
 #### 安装教程
 ```
-composer create-project pandamen/panda-tool
+composer require pandamen/panda-tool
 ```
 
 #### 运行demo
