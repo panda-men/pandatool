@@ -4,7 +4,7 @@
 
 #### 安装教程
 ```
-composer require panda/commom-helper
+composer require panda
 ```
 
 #### 运行demo
