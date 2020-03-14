@@ -1,9 +1,9 @@
 #### 文档地址
-> https:/xxxxx/
+> https://packagist.org/packages/pandamen/panda-tool
 
 #### 安装教程
 ```
-composer require panda
+composer create-project pandamen/panda-tool
 ```
 
 #### 运行demo
