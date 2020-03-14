@@ -1,6 +1,6 @@
 {
-    "name": "pandamen/panda-tool",
-    "description": "pandamen/panda-tool",
+    "name": "pandamen/pandatool",
+    "description": "pandamen/pandatool",
     "type": "project",
     "minimum-stability": "dev",
     "authors": [
