@@ -10,11 +10,11 @@
 > 常用函数类 
 
 #### 文档地址
-> https://packagist.org/packages/pandamen/panda-tool
+> https://packagist.org/packages/pandamen/pandatool
 
 #### 安装教程
 ```
-composer require pandamen/panda-tool
+composer require pandamen/pandatool
 ```
 
 #### 运行demo
