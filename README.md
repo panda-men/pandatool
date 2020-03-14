@@ -5,6 +5,10 @@
 
 > XML转换
 
+> 金额计算类
+
+> 常用函数类
+
 #### 文档地址
 > https://packagist.org/packages/pandamen/panda-tool
 
