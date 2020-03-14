@@ -2,8 +2,7 @@
     "name": "pandamen/panda-tool",
     "description": "pandaTool PHP",
     "homepage": "https://packagist.org/packages/pandamen/panda-tool",
-    "type": "project",
-    "license": "MIT",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "panda",
