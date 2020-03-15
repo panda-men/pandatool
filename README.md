@@ -9,6 +9,8 @@
 
 > 常用函数类 
 
+> Web令牌（JWT）
+
 #### 文档地址
 > https://packagist.org/packages/pandamen/pandatool
 
