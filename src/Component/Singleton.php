@@ -5,7 +5,7 @@
  * Date: 2020/3/14
  * Time: 15:10
  */
-namespace panda\Component;
+namespace Pandamen\Pandatool\Component;
 
 trait Singleton
 {

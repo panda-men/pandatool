@@ -8,7 +8,7 @@
 
 require "../vendor/autoload.php";
 
-$Calculation = \panda\Calculation::getInstance();
+$Calculation = \Pandamen\Pandatool\Calculation::getInstance();
 
 $price = $Calculation->pricecalc(6.08,'+',0.14,2);
 echo $price;

@@ -5,8 +5,8 @@
  * Time: 下午 11:47
  */
 
-namespace panda;
-use panda\Component\Singleton;
+namespace Pandamen\Pandatool;
+use Pandamen\Pandatool\Component\Singleton;
 
 class Calculation
 {

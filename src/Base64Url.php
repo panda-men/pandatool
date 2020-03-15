@@ -7,7 +7,7 @@
  * Time: 下午 11:47
  */
 
-namespace panda;
+namespace Pandamen\Pandatool;
 
 
 class Base64Url

@@ -5,9 +5,9 @@
  * Time: 下午 11:47
  */
 
-namespace panda;
+namespace Pandamen\Pandatool;
 
-use panda\Component\Singleton;
+use Pandamen\Pandatool\Component\Singleton;
 
 class Cryption
 {

@@ -18,5 +18,5 @@ composer require pandamen/pandatool
 ```
 
 #### 运行demo
-> vendor 目录下找到panda/demo
+> vendor 目录下找到pandatool/demo
 

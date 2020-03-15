@@ -10,9 +10,9 @@ require "../vendor/autoload.php";
 
 $str = "你好panda";
 
-$base64url = \panda\Base64Url::encode($str);
+$base64url = \Pandamen\Pandatool\Base64Url::encode($str);
 echo $base64url ."\n";
 
-echo \panda\Base64Url::decode($base64url);
+echo \Pandamen\Pandatool\Base64Url::decode($base64url);
 
 

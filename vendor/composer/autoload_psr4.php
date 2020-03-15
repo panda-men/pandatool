@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'panda\\' => array($baseDir . '/src/panda'),
+    'Pandamen\\Pandatool\\' => array($baseDir . '/src'),
 );

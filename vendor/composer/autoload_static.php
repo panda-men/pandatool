@@ -4,27 +4,27 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf991f534c081af977f7ac85c37ac800a
+class ComposerStaticInitd348f1c202c5166a36f1dd5003c7f3d9
 {
     public static $prefixLengthsPsr4 = array (
-        'p' => 
+        'P' => 
         array (
-            'panda\\' => 6,
+            'Pandamen\\Pandatool\\' => 19,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'panda\\' => 
+        'Pandamen\\Pandatool\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/src/panda',
+            0 => __DIR__ . '/../..' . '/src',
         ),
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf991f534c081af977f7ac85c37ac800a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf991f534c081af977f7ac85c37ac800a::$prefixDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd348f1c202c5166a36f1dd5003c7f3d9::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd348f1c202c5166a36f1dd5003c7f3d9::$prefixDirsPsr4;
 
         }, null, ClassLoader::class);
     }
