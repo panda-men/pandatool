@@ -15,11 +15,11 @@ class JWT
 {
     use Singleton;
 
-    private $alg = "AES";
-    private $iss = "Pandamen";
-    private $exp = 7200; // 默认2个小时
-    private $sub;
-    private $nbf;
+    private $alg = "AES";//声明加密的算法 通常直接使用 HMAC SHA256
+    private $iss = "Pandamen";//发行人
+    private $exp = 7200; // 默认2个小时  jwt的过期时间，这个过期时间必须要大于签发时间
+    private $sub;//主题
+    private $nbf;//定义在什么时间之前，该jwt都是不可用的
     private $with = [];
     private $jwt;
     private $dataStr;
@@ -176,6 +176,15 @@ class JWT
             $this->clear();
             return 'EXP';
         }
+        
+        //剩余过期时间
+        if(empty($data['exp'])){
+            // 永不过期
+            $data['lastExp'] = 0;
+        }else{
+            $data['lastExp'] = $data['exp'] - $time;
+        }
+        
 
         // 返回解析数据
         return $data;
