@@ -9,6 +9,7 @@
 require  "../vendor/autoload.php";
 
 $JWT = \Pandamen\Pandatool\JWT::getInstance();
+# 每次加密的结果都不一样 可以设置过期时间
 $token = $JWT->setIss('Test')
                 ->setSecretKey('keykeykey')
                 ->setSub('Payment')
