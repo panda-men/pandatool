@@ -9,10 +9,10 @@
 
 require "../vendor/autoload.php";
 
-$fun = \Pandamen\Pandatool\CommonFun::getInstance();
+$fun = \Pandamen\Pandatool\Common::getInstance();
 
 # 每次加密的结果都不一样 可以设置过期时间
-$res = $fun->num2rmb(2145235);
+$res = $fun::num2rmb(2145235);
 echo $res;
 echo "<br>";
 

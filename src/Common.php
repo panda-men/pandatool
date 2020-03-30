@@ -10,7 +10,7 @@ namespace Pandamen\Pandatool;
 
 use Pandamen\Pandatool\Component\Singleton;
 
-class CommonFun
+class Common
 {
     use Singleton;
     
@@ -269,83 +269,167 @@ class CommonFun
         return $tokenvalue;
     }
 
+
     /**
-     * 获取整条字符串汉字拼音首字母
-     * @param $zh
+     * 将数组转换为xml，可以多维
+     * @param array $data
+     * @param bool $root 是否添加头部
      * @return string
      */
-    public static function pinyin_long($zh){
-        $ret = "";
-        $s1 = iconv("UTF-8","gb2312", $zh);
-        $s2 = iconv("gb2312","UTF-8", $s1);
-        if($s2 == $zh){$zh = $s1;}
-        for($i = 0; $i < strlen($zh); $i++){
-            $s1 = substr($zh,$i,1);
-            $p = ord($s1);
-            if($p > 160){
-                $s2 = substr($zh,$i++,2);
-                $ret .= getFirstCharter($s2);
+    public static function arrayToXml($data, $root = true)
+    {
+        $str="";
+        if($root)$str .= '<?xml version="1.0" encoding="UTF-8"?>';
+        foreach($data as $key => $val){
+            //去掉key中的下标[]
+            $key = preg_replace('/\[\d*\]/', '', $key);
+            if(is_array($val)){
+                $child = self::arrayToXml($val, false);
+                $str .= "<$key>$child</$key>";
             }else{
-                $ret .= $s1;
+                $str.= "<$key>$val</$key>";
             }
         }
-        return $ret;
+        return $str;
     }
 
+
+    public static function xmlToArray($xml)
+    {
+        // 清理替换没有闭合标签的
+        $xml = preg_replace('/\<(\w+)\/\>/','<$1></$1>',$xml);
+
+        $object = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA);
+        $array  = json_decode(json_encode($object),true);
+        $array  = self::_checkType($array);
+        return $array;
+    }
+
+    /**
+     * 遍历检查数组格式，如果是空数组则转为字符串
+     * @param $array
+     * @return array
+     */
+    public static function _checkType($array){
+        $tem = [];
+        foreach ($array as $key => $value){
+            if (is_array($value)){
+                if (empty($value)){
+                    $tem[$key] = "";
+                }else{
+                    $tem[$key] = self::_checkType($value);
+                }
+            }else{
+                $tem[$key] = $value;
+            }
+        }
+        return $tem;
+    }
+
+    /**
+     * 加密
+     * @param $data
+     * @return mixed|null|string
+     */
+    public static function base64Encode($data)
+    {
+        if (!is_string($data)){
+            return NULL;
+        }
+        $base64 = base64_encode($data);
+        $base64 = str_replace("/", "_",$base64);
+        $base64 = str_replace("+", "_a_",$base64);
+        $base64 = str_replace("=", "_b_",$base64);
+        return $base64;
+    }
+
+    /**
+     * 解密
+     * @param $str
+     * @return mixed|null|string
+     */
+    public static function base64Decode($str)
+    {
+        if (!is_string($str)){
+            return NULL;
+        }
+        $str = str_replace("_b_", "=",$str);
+        $str = str_replace("_a_", "+",$str);
+        $str = str_replace("_", "/",$str);
+        $str = base64_decode($str);
+        return $str;
+    }
+
+    /**
+     * 获取客户端IP
+     * @param   $isLong     是否为longint类型
+     * @return  string or integer
+     */
+    public static function getClientIp($isLong = false){
+        if (isset($_SERVER['REMOTE_ADDR'])){
+            return $isLong ? ip2long($_SERVER['REMOTE_ADDR']) : $_SERVER['REMOTE_ADDR'];
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * 获取客户端header
+     * @param   $key 
+     * @return  array or string [<description>]
+     */
+    static $clientHeader = false;
+    static function getClientHeader($key = null) {
+        if (self::$clientHeader === false) {
+            foreach ($_SERVER as $k => $v) {
+                if (substr($k, 0, 5) == 'HTTP_') {
+                    $headerKey = str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($k, 5)))));
+                    self::$clientHeader[$headerKey] = $v;
+                }
+            }
+        }
+
+        if ($key !== null) {
+            return self::$clientHeader[$key] ?? null;
+        }
+
+        return self::$clientHeader;
+    }
 
 
     /**
-     * [is_idcard 身份证验证]
-     * @param  [type]  $id [description]
-     * @return boolean     [description]
+     * 随机字符串获取
+     * @param   $length
+     * @return  $string
      */
-    public static function is_idcard($id) {
-        $id = strtoupper($id);
-        $regx = "/(^\d{15}$)|(^\d{17}([0-9]|X)$)/";
-        $arr_split = array();
-        if(!preg_match($regx, $id)) {
-            return FALSE;
+    public static function randStr($length = 10){
+        $loop       = ceil($length/32);
+        $surplus    = 32 - $length%32;
+        $string     = '';
+        for($i = 0; $i < $loop; $i++){
+            $string     .= md5(rand(1000,9999));
         }
-        //检查15位
-        if(15==strlen($id)) {
-            $regx = "/^(\d{6})+(\d{2})+(\d{2})+(\d{2})+(\d{3})$/";
 
-            @preg_match($regx, $id, $arr_split);
-            //检查生日日期是否正确
-            $dtm_birth = "19".$arr_split[2] . '/' . $arr_split[3]. '/' .$arr_split[4];
-            if(!strtotime($dtm_birth)) {
-                return FALSE;
-            } else {
-                return TRUE;
-            }
-        } else {
-            //检查18位
-            $regx = "/^(\d{6})+(\d{4})+(\d{2})+(\d{2})+(\d{3})([0-9]|X)$/";
-            @preg_match($regx, $id, $arr_split);
-            $dtm_birth = $arr_split[2] . '/' . $arr_split[3]. '/' .$arr_split[4];
-            //检查生日日期是否正确
-            if(!strtotime($dtm_birth)) {
-                return FALSE;
-            } else {
-                //检验18位身份证的校验码是否正确。
-                //校验位按照ISO 7064:1983.MOD 11-2的规定生成，X可以认为是数字10。
-                $arr_int = array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2);
-                $arr_ch = array('1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2');
-                $sign = 0;
-                for ( $i = 0; $i < 17; $i++ ) {
-                    $b = (int) $id{$i};
-                    $w = $arr_int[$i];
-                    $sign += $b * $w;
-                }
-                $n = $sign % 11;
-                $val_num = $arr_ch[$n];
-                if ($val_num != substr($id,17, 1)) {
-                    return FALSE;
-                } else {
-                    return TRUE;
-                }
-            }
-        }
+        return strtoupper(substr($string, $surplus));
     }
 
+    /**
+     * 计算执行时间
+     * @param   $tag
+     * @param   $tag2
+     * @return  boolean || time
+     */
+    static $executeTimeTag  = [];
+    public static function exeTime($tag, $tag2 = null){
+        if($tag2 === null){
+            //记录执行时间
+            self::$executeTimeTag[$tag]     = microtime(true);
+            return true;
+        }else if(isset(self::$executeTimeTag[$tag]) && isset(self::$executeTimeTag[$tag2])){
+            //返回执行时间
+            return abs(round(self::$executeTimeTag[$tag2] - self::$executeTimeTag[$tag], 3));
+        }else{
+            return true;
+        }
+    }
 }
